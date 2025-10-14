@@ -1,16 +1,46 @@
-# React + Vite
+Features
+    Paste-area + Analyze button (calls /api/ai/extract on the backend)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+    Editable ticket form: contact, channel, language, intent, priority, entities
 
-Currently, two official plugins are available:
+    Read-only original message + editable reply draft
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+    Save ticket (POST /api/tickets) and view tickets list (GET /api/tickets)
 
-## React Compiler
+    Filters by status / priority / language; quick search
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+    Arabic support: dir="auto" on text fields, Arabic-capable font, RTL friendly
 
-## Expanding the ESLint configuration
+    Friendly error toasts when AI/Network is down
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Tech Stack
+
+    React (Vite), React Router
+
+    Vanilla CSS (custom dark theme)
+
+    Fetch API for HTTP
+
+Backend running locally at http://localhost:3000
+
+TO RUN THE CODE 
+    GIT CLONE https://github.com/HasannShd/ai-inbox-frontend
+    cd ai-inbox-frontend
+    npm install to download all the packages
+
+    Create an .env file and add this
+        VITE_API_URL=http://localhost:3000
+
+    npm run dev
+
+once the app working
+    you can paste a message and click analyze 
+    a reply draft from the ai appears also 
+    you can edit any field as needed and save the ticket 
+    after saving you can go check it in the tickets page 
+
+    screenshots
+ [compose](src/assets/compose.png)
+ [ticketlist](src/assets/tickets-list.png)
+ [edit](src/assets/edit.png)
+ [update](src/assets/update.png)

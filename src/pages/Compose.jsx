@@ -18,7 +18,7 @@ const Compose = () => {
     setLoading(true);
     try {
       const data = await aiExtract(raw);
-      data.message_raw = raw;           // ensure we keep the original paste
+      data.message_raw = raw;           
       setTicket(data);
     } catch (e) {
       setErr(e.message || 'Failed to analyze');

@@ -1,7 +1,6 @@
 // src/services/api.js
 const BASE = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
-// keep same pattern as your chats service: read token from localStorage
 function authHeaders(extra = {}) {
   const token = localStorage.getItem('token');
   return token
