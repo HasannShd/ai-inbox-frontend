@@ -1,0 +1,22 @@
+/* styles.css */
+:root{ --bg:#0b1220; --panel:#111827; --line:#1f2741; --text:#e7ebff; --muted:#9fb0ff; --brand:#3153ff; --danger:#ef4444; }
+*{box-sizing:border-box} html,body,#root{height:100%} body{margin:0;background:#0b1220;color:var(--text);font:16px/1.5 system-ui,Segoe UI,Roboto,Arial}
+.container{max-width:980px;margin:0 auto;padding:24px 16px}
+.nav{position:sticky;top:0;display:flex;gap:16px;align-items:center;padding:10px 16px;background:rgba(10,14,30,.8);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.nav .brand{font-weight:800;color:#fff;text-decoration:none}
+.nav a{color:#c7d2ff;text-decoration:none} .nav a.active{color:#fff}
+.spacer{flex:1}
+label{display:block;margin:.6rem 0 .25rem;color:#cfe}
+input,select,textarea{width:100%;padding:.65rem .75rem;border-radius:10px;border:1px solid var(--line);background:#0f1426;color:#e7ebff;outline:none}
+input:focus,select:focus,textarea:focus{border-color:#4562ff}
+.btn{background:linear-gradient(180deg,var(--brand),#2545cf);border:1px solid transparent;color:#fff;padding:.6rem 1rem;border-radius:10px;cursor:pointer}
+.btn.ghost{background:transparent;border:1px solid var(--line)} .btn.danger{background:linear-gradient(180deg,#ef4444,#c02c2c)} .btn.tiny{padding:.3rem .6rem;border-radius:8px}
+.muted{color:var(--muted)} .error{background:#3a1414;border:1px solid #5e1f1f;padding:.6rem 1rem;border-radius:10px;margin-top:.75rem}
+.table{width:100%;border-collapse:collapse;margin-top:1rem} .table th,.table td{border-bottom:1px solid var(--line);padding:.6rem .4rem;text-align:left}
+.pill{padding:.15rem .5rem;border-radius:999px;border:1px solid var(--line)} .pill.low{background:#132a13}.pill.medium{background:#2a1f13}.pill.high{background:#3a1414}
+.row{display:flex;gap:.5rem;align-items:center} .row.end{justify-content:flex-end} .row.gap{gap:.4rem}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:grid;place-items:center} .modal-card{width:min(900px,92vw);max-height:90vh;overflow:auto;background:#0d1326;border:1px solid var(--line);border-radius:14px;padding:16px}
+.filters{display:flex;flex-wrap:wrap;gap:.5rem;margin:1rem 0}
+.compose-actions{margin:.75rem 0}
+.tf-grid{display:grid;grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:.8rem}
+.tf-row{display:flex;gap:.5rem;align-items:center} .tf-row.end{justify-content:flex-end}
