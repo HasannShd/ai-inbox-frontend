@@ -13,7 +13,7 @@ const EMPTY = {
   reply_suggestion: ''
 };
 
-const TicketForm = ({ value = EMPTY, onChange, onSubmit, submitting }) => {
+const TicketForm = ({ value = EMPTY, onChange, onSubmit, submitting, showStatus = false }) => {
   // normalize a value to always include required sub-objects
   const normalize = (v) => ({
     ...EMPTY,
@@ -65,8 +65,13 @@ const TicketForm = ({ value = EMPTY, onChange, onSubmit, submitting }) => {
     onSubmit?.(form);
   };
 
+  // RTL / Arabic support
+  const isAR = (form.language || '').toLowerCase() === 'ar';
+  const dir = isAR ? 'rtl' : 'ltr';
+  const lang = (form.language || 'en').toLowerCase();
+
   return (
-    <form className="ticket-form" onSubmit={handleSubmit}>
+    <form className="ticket-form" onSubmit={handleSubmit} dir={dir} lang={lang}>
       <div className="tf-grid">
         <div className="tf-field">
           <label>Contact name</label>
@@ -80,26 +85,44 @@ const TicketForm = ({ value = EMPTY, onChange, onSubmit, submitting }) => {
           <label>Phone</label>
           <input value={form.contact?.phone || ''} onChange={e => setField('contact.phone', e.target.value)} />
         </div>
+
         <div className="tf-field">
           <label>Channel</label>
           <select value={form.channel} onChange={e => setField('channel', e.target.value)}>
             <option>email</option><option>whatsapp</option><option>sms</option><option>chat</option><option>unknown</option>
           </select>
         </div>
+
         <div className="tf-field">
           <label>Language</label>
           <input value={form.language} onChange={e => setField('language', e.target.value)} />
         </div>
+
         <div className="tf-field">
           <label>Intent</label>
           <input value={form.intent} onChange={e => setField('intent', e.target.value)} />
         </div>
+
         <div className="tf-field">
           <label>Priority</label>
           <select value={form.priority} onChange={e => setField('priority', e.target.value)}>
             <option>low</option><option>medium</option><option>high</option>
           </select>
         </div>
+
+        {/* Status ONLY when editing on Tickets page (showStatus=true there) */}
+        {showStatus && (
+          <div className="tf-field">
+            <label>Status</label>
+            <select
+              value={(form.status || 'open').replace('opened', 'open')}
+              onChange={e => setField('status', e.target.value)}
+            >
+              <option value="open">open</option>
+              <option value="closed">closed</option>
+            </select>
+          </div>
+        )}
       </div>
 
       <div className="tf-entities">

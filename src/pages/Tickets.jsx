@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import '../App.css';
 import { listTickets, updateTicket, deleteTicket } from '../services/api.js';
 import TicketRow from '../components/TicketRow.jsx';
@@ -14,6 +14,10 @@ const Tickets = () => {
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState('');
   const [editing, setEditing] = useState(null);
+
+  // a11y focus management
+  const lastFocusRef = useRef(null);   // element that opened the modal
+  const closeBtnRef  = useRef(null);   // Close button inside the modal
 
   // load
   const load = async () => {
@@ -54,6 +58,39 @@ const Tickets = () => {
     }
   };
 
+  // open/close with focus management
+  const openEdit = (t) => {
+    // remember which control opened the modal (usually the Edit button)
+    lastFocusRef.current = document.activeElement;
+    setEditing(t);
+  };
+
+  const closeEdit = () => {
+    setEditing(null);
+    // return focus to the opener
+    // timeout ensures DOM has updated
+    setTimeout(() => lastFocusRef.current?.focus?.(), 0);
+  };
+
+  // Close on ESC when modal is open
+  useEffect(() => {
+    if (!editing) return; // only listen when open
+    const onKey = (e) => {
+      if (e.key === 'Escape') {
+        closeEdit();
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [editing]);
+
+  // Focus the Close button when modal opens
+  useEffect(() => {
+    if (editing) {
+      closeBtnRef.current?.focus?.();
+    }
+  }, [editing]);
+
   // render
   return (
     <div className="tickets">
@@ -74,7 +111,7 @@ const Tickets = () => {
           <button className="btn" type="submit">Apply</button>
         </form>
 
-        {err && <div className="error">{err}</div>}
+        {err && <div className="error" role="alert">{err}</div>}
         {loading && <div className="muted">Loading…</div>}
 
         {!loading && (
@@ -86,9 +123,11 @@ const Tickets = () => {
             </thead>
             <tbody>
               {items.map(t => (
-                <TicketRow key={t.id} t={t}
-                  onView={setEditing}
-                  onEdit={setEditing}
+                <TicketRow
+                  key={t.id}
+                  t={t}
+                  onView={openEdit}     // you can keep onView unused or wire a View modal later
+                  onEdit={openEdit}     // use the open handler so we capture focus
                   onDelete={onDeleteRow}
                 />
               ))}
@@ -98,13 +137,13 @@ const Tickets = () => {
         )}
 
         {editing && (
-          <div className="modal">
-            <div className="modal-card">
+          <div className="modal" role="dialog" aria-modal="true" aria-label="Edit ticket">
+            <div className="modal-card" tabIndex={-1}>
               <div className="row end">
-                <button className="btn ghost tiny" onClick={() => setEditing(null)}>Close</button>
+                <button ref={closeBtnRef} className="btn ghost tiny" onClick={closeEdit}>Close</button>
               </div>
               <h3>Edit ticket</h3>
-              <TicketForm value={editing} onChange={setEditing} onSubmit={onSaveEdit} />
+              <TicketForm value={editing} onChange={setEditing} onSubmit={onSaveEdit} showStatus />
             </div>
           </div>
         )}
