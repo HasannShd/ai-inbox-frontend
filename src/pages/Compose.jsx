@@ -67,6 +67,7 @@ const Compose = () => {
           <>
             <h2>Extracted Ticket</h2>
             <TicketForm value={ticket} onChange={setTicket} onSubmit={save} submitting={saving} />
+            
           </>
         )}
       </div>

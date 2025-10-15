@@ -9,7 +9,7 @@ Features
 
     Filters by status / priority / language; quick search
 
-    Arabic support: dir="auto" on text fields, Arabic-capable font, RTL friendly
+    Arabic support
 
     Friendly error toasts when AI/Network is down
 
@@ -32,6 +32,9 @@ TO RUN THE CODE
         VITE_API_URL=http://localhost:3000
 
     npm run dev
+
+.env example 
+    VITE_API_URL=http://localhost:3000 to connect to the backend 
 
 once the app working
     you can paste a message and click analyze 
